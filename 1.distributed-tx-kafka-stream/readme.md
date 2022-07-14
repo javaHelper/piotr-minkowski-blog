@@ -29,3 +29,22 @@ Response:
     "source": null
 }
 ```
+
+GET -> `http://localhost:8080/orders`
+
+Response:
+
+```json
+[
+    {
+        "id": 1,
+        "customerId": 10,
+        "productId": 10,
+        "productCount": 5,
+        "price": 100,
+        "status": "NEW",
+        "source": null
+    }
+]
+```
+
