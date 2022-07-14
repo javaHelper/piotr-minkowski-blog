@@ -70,3 +70,5 @@ payment-orders
 
 `{"id":1,"customerId":10,"productId":10,"productCount":5,"price":100,"status":"ACCEPT","source":null}`
 
+
+- Ref: https://github.com/piomin/sample-spring-kafka-microservices
