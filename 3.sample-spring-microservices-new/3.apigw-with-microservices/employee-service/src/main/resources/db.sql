@@ -1,0 +1,10 @@
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(1, 34, 1, 'John Smith', 1, 'Analyst');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(2, 37, 1, 'Darren Hamilton', 1, 'Manager');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(3, 26, 1, 'Tom Scott', 1, 'Developer');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(4, 39, 2, 'Anna London', 1, 'Analyst');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(5, 27, 2, 'Patrick Dempsey', 1, 'Developer');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(6, 38, 3, 'Kevin Price', 2, 'Developer');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(7, 34, 3, 'Ian Scott', 2, 'Developer');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(8, 30, 3, 'Andrew Campton', 2, 'Manager');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(9, 25, 4, 'Steve Franklin', 2, 'Developer');
+INSERT INTO piomin_app.employee (id, age, department_id, name, organization_id, `position`) VALUES(10, 30, 4, 'Elisabeth Smith', 2, 'Developer');
