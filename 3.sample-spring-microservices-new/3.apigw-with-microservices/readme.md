@@ -9,6 +9,9 @@
 - organization-service
 - gateway-service
 
+![piomin](https://user-images.githubusercontent.com/54174687/179191314-df19702b-24d9-4f70-84d5-19b417594173.png)
+
+
 GET -> `localhost:8011/department/organization/1/with-employees`
 
 Response:
