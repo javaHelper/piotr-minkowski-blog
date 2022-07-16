@@ -4,6 +4,8 @@
 
 <img width="1404" alt="Screenshot 2022-07-16 at 3 47 19 PM" src="https://user-images.githubusercontent.com/54174687/179350767-35297708-5df2-4b09-b251-0654df532604.png">
 
+<img width="1157" alt="Screenshot 2022-07-16 at 4 02 51 PM" src="https://user-images.githubusercontent.com/54174687/179351364-4a89e30e-b8b8-42de-a98a-b11c98fad3fa.png">
+
 # Sequence to start microservices
 
 - config-server
