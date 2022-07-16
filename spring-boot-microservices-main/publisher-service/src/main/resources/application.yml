@@ -1,0 +1,17 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: publisher-service
+  rabbitmq:
+    host: armadillo.rmq.cloudamqp.com
+    port: 5672
+    username: kdarfadn
+    password: JphIeqSPAGkiPA1wHvvGjdLrRB7NJnn4
+    virtual-host: kdarfadn
