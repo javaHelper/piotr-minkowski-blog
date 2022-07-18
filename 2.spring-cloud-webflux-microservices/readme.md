@@ -93,4 +93,53 @@ Response:
 
 - Ref: https://piotrminkowski.com/2018/05/04/reactive-microservices-with-spring-webflux-and-spring-cloud/
 
+```java
+@RestController
+@RequestMapping("/customer")
+public class CustomerController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
+
+	@Autowired
+	private CustomerRepository repository;
+	@Autowired
+    private WebClient.Builder webClientBuilder;
+
+	@GetMapping("/{id}")
+	public Mono<Customer> findById(@PathVariable("id") String id) {
+		LOGGER.info("findById: id={}", id);
+		return repository.findById(id);
+	}
+
+	@GetMapping
+	public Flux<Customer> findAll() {
+		LOGGER.info("findAll");
+		return repository.findAll();
+	}
+
+	@GetMapping("/{id}/with-accounts")
+	public Mono<Customer> findByIdWithAccounts(@PathVariable("id") String id) {
+		LOGGER.info("findByIdWithAccounts: id={}", id);
+		Flux<Account> accounts = webClientBuilder
+				.build().
+				get()
+				.uri("http://account-service/account/customer/{customer}", id)
+				.retrieve()
+				.bodyToFlux(Account.class);	
+		
+		return accounts
+				.collectList()
+				.map(a -> new Customer(a))
+				.mergeWith(repository.findById(id))
+				.collectList()
+				.map(CustomerMapper::map);
+	}
+
+	@PostMapping
+	public Mono<Customer> create(@RequestBody Customer customer) {
+		LOGGER.info("create: {}", customer);
+		return repository.save(customer);
+	}
+	
+}
+```
