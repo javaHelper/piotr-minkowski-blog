@@ -280,3 +280,59 @@ Response:
 }
 ```
 
+Code
+
+```java
+@GetMapping("/{id}/with-departments")
+	public OrganizationModel findByIdWithDepartments(@PathVariable("id") Long id) {
+		LOGGER.info("Organization find: id={}", id);
+
+		// Inter-service communication using Feign
+		List<Department> departments = departmentClient.findByOrganization(id);
+
+		Organization organization = repository.findById(id).orElseThrow();
+
+		OrganizationModel organizationModel = new OrganizationModel();
+		organizationModel.setAddress(organization.getAddress());
+		organizationModel.setId(organization.getId());
+		organizationModel.setName(organization.getName());
+		organizationModel.setDepartments(departments);
+		return organizationModel;
+	}
+
+	@GetMapping("/{id}/with-departments-and-employees")
+	public OrganizationModel findByIdWithDepartmentsAndEmployees(@PathVariable("id") Long id) {
+		LOGGER.info("Organization find: id={}", id);
+
+		// Inter-service communication using Feign
+		List<Department> departments = departmentClient.findByOrganizationWithEmployees(id);
+
+
+		Organization organization = repository.findById(id).orElseThrow();
+
+		OrganizationModel organizationModel = new OrganizationModel();
+		organizationModel.setAddress(organization.getAddress());
+		organizationModel.setId(organization.getId());
+		organizationModel.setName(organization.getName());
+		organizationModel.setDepartments(departments);
+		return organizationModel;
+	}
+
+	@GetMapping("/{id}/with-employees")
+	public Organization findByIdWithEmployees(@PathVariable("id") Long id) {
+		LOGGER.info("Organization find: id={}", id);
+		Organization organization = repository.findById(id).orElseThrow();
+		
+		// Inter-service communication using Feign
+		List<Employee> employees = employeeClient.findByOrganization(organization.getId());
+		
+		OrganizationModel organizationModel = new OrganizationModel();
+		organizationModel.setId(organization.getId());
+		organizationModel.setName(organization.getName());
+		organizationModel.setAddress(organization.getAddress());
+		organizationModel.setEmployees(employees);
+		return organization;
+	}
+```
+
+
