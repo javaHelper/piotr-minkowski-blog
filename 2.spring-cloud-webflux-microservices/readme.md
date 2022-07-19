@@ -121,8 +121,8 @@ public class CustomerController {
 	public Mono<Customer> findByIdWithAccounts(@PathVariable("id") String id) {
 		LOGGER.info("findByIdWithAccounts: id={}", id);
 		Flux<Account> accounts = webClientBuilder
-				.build().
-				get()
+				.build()
+				.get()
 				.uri("http://account-service/account/customer/{customer}", id)
 				.retrieve()
 				.bodyToFlux(Account.class);	
