@@ -2,6 +2,69 @@
 
 <img width="507" alt="Screenshot 2022-07-15 at 9 38 16 PM" src="https://user-images.githubusercontent.com/54174687/179263257-44e70304-1006-46f0-bafe-7313029ea6ae.png">
 
+- blog-service
+
+```java
+@Service
+@Slf4j
+public class ProducerService {
+
+	private static final String TOPIC = "blog";
+	
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+	
+	
+	public void sendMessage(String message) {
+        log.info(String.format("### Message send -> %s", message));
+        this.kafkaTemplate.send(TOPIC, message);
+    }
+}
+
+@Service
+@Slf4j
+public class ConsumerService {
+
+	
+	@KafkaListener(topics = "blog_comment", groupId = "0")
+	public void consume(String message) {
+		log.info("-------------------------------------");
+        log.info(String.format("### Message received -> %s", message));
+    }
+}
+```
+
+- blog-comment-service
+
+```java
+@Slf4j
+@Service
+public class ProducerService {
+	private static final String TOPIC = "blog_comment";
+	
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+	
+	public void sendMessage(String message) {
+		log.info(String.format("### Message send -> %s", message));
+		this.kafkaTemplate.send(TOPIC, message);
+	}
+}
+
+@Service
+public class ConsumerService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerService.class);
+
+	@KafkaListener(topics = "blog", groupId = "0")
+	public void consume(String message) {
+		LOGGER.info("-----------------------------------------------");
+		LOGGER.info(String.format("### Message received -> %s", message));
+	}
+}
+```
+
+
+
 In this exaple, we've used Spring Boot and Apache Kafka for Event Driven based microservices
 
 
