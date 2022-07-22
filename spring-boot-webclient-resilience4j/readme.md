@@ -123,4 +123,4 @@ curl --location --request POST 'http://localhost:8600/customers' \
 }'
 ```
 
-
+I've not shown DELETE, PUT etc request, however you try those.
