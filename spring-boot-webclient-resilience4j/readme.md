@@ -33,7 +33,7 @@ resilience4j.circuitbreaker.instances.customer-service.permitted-number-of-calls
 
 - Controller
 
-```
+```java
 public class WebClientConfiguration {
 
 	@Bean
@@ -122,3 +122,5 @@ curl --location --request POST 'http://localhost:8600/customers' \
     "address": "Achalpur"
 }'
 ```
+
+
