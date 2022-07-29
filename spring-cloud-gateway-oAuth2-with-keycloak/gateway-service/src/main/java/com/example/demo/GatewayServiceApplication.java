@@ -21,11 +21,13 @@ public class GatewayServiceApplication {
 	
 	@GetMapping(value = "/token")
 	public Mono<String> getHome(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+		System.out.println("Token : "+authorizedClient.getAccessToken().getTokenValue());
 		return Mono.just(authorizedClient.getAccessToken().getTokenValue());
 	}
 
 	@GetMapping("/")
 	public Mono<String> index(WebSession session) {
+		System.out.println("Session ID :"+session.getId());
 		return Mono.just(session.getId());
 	}
 }
