@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,9 @@ public class CustomerController {
 	private CustomerRepository repository;
 	@Autowired
     private WebClient.Builder webClientBuilder;
+	
+	@Value("${account.service.api}")
+	private String accountApi;
 
 	@GetMapping("/{id}")
 	public Mono<Customer> findById(@PathVariable("id") String id) {
@@ -46,9 +50,9 @@ public class CustomerController {
 	public Mono<Customer> findByIdWithAccounts(@PathVariable("id") String id) {
 		LOGGER.info("findByIdWithAccounts: id={}", id);
 		Flux<Account> accounts = webClientBuilder
-				.build().
-				get()
-				.uri("http://account-service/account/customer/{customer}", id)
+				.build()
+				.get()
+				.uri(accountApi + "/account/customer/{customer}", id)
 				.retrieve()
 				.bodyToFlux(Account.class);	
 		
