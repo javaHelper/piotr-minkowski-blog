@@ -27,7 +27,7 @@ public class CustomerController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
 	@Autowired
-	private CustomerRepository repository;
+	private CustomerRepository customerRepository;
 	@Autowired
     private WebClient.Builder webClientBuilder;
 	
@@ -37,13 +37,13 @@ public class CustomerController {
 	@GetMapping("/{id}")
 	public Mono<Customer> findById(@PathVariable("id") String id) {
 		LOGGER.info("findById: id={}", id);
-		return repository.findById(id);
+		return customerRepository.findById(id);
 	}
 
 	@GetMapping
 	public Flux<Customer> findAll() {
 		LOGGER.info("findAll");
-		return repository.findAll();
+		return customerRepository.findAll();
 	}
 
 	@GetMapping("/{id}/with-accounts")
@@ -59,7 +59,7 @@ public class CustomerController {
 		return accounts
 				.collectList()
 				.map(a -> new Customer(a))
-				.mergeWith(repository.findById(id))
+				.mergeWith(customerRepository.findById(id))
 				.collectList()
 				.map(CustomerMapper::map);
 	}
@@ -67,7 +67,7 @@ public class CustomerController {
 	@PostMapping
 	public Mono<Customer> create(@RequestBody Customer customer) {
 		LOGGER.info("create: {}", customer);
-		return repository.save(customer);
+		return customerRepository.save(customer);
 	}
 	
 }
