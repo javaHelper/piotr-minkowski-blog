@@ -80,3 +80,16 @@ payment-orders
 (4) order-service process incoming stream of orders from payment-service and stock-service, join them by Order id and sends Order with a new status -> `status == CONFIRMATION` or `status == ROLLBACK` or `status == REJECTED`
 (5) payment-service and stock-service receive Order with a final status and "commit" or "rollback" a local transaction make before
 ```
+
+```sh
+kafka-console-consumer --bootstrap-server localhost:9092 --topic orders --from-beginning
+{"id":1,"customerId":10,"productId":10,"productCount":5,"price":100,"status":"NEW","source":null}
+{"id":1,"customerId":10,"productId":10,"productCount":5,"price":100,"status":"CONFIRMED","source":null}
+
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic payment-orders --from-beginning
+{"id":1,"customerId":10,"productId":10,"productCount":5,"price":100,"status":"ACCEPT","source":"payment"}
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic stock-orders --from-beginning
+{"id":1,"customerId":10,"productId":10,"productCount":5,"price":100,"status":"ACCEPT","source":null}
+```
