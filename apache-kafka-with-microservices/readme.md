@@ -180,3 +180,10 @@ Response:
 <img width="1203" alt="Screenshot 2022-07-15 at 9 46 24 PM" src="https://user-images.githubusercontent.com/54174687/179264681-3ea8a4f5-155a-4a01-ba9d-ec06a9992f90.png">
 
 
+```sh
+kafka-console-consumer --bootstrap-server localhost:9092 --topic blog --from-beginning
+This BlogEntity(id=1, title=Spring in Action, image=http://my-image/learning-java, description=Helps to learn Spring Core concepts) blog is created !
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic blog_comment --from-beginning
+This BlogCommentEntity(id=1, blogId=1, message=This is very good book to learn Spring Framework) comment is created !
+```
