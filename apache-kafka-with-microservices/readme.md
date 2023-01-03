@@ -34,6 +34,38 @@ public class ConsumerService {
 }
 ```
 
+```properties
+#
+server.port=8012
+spring.application.name=blog-service
+
+
+#MySQL DB
+# MySQL
+spring.datasource.url=jdbc:mysql://localhost:3306/blog_app?createDatabaseIfNotExist=true&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=Password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.properties.hibernate.use_sql_comments=true
+spring.jpa.properties.hibernate.format_sql=true
+
+
+#Kafka Consumer
+spring.kafka.consumer.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=0
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+# Kafka Producer
+spring.kafka.producer.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+```
+
+
 - blog-comment-service
 
 ```java
@@ -62,6 +94,36 @@ public class ConsumerService {
 	}
 }
 ```
+
+```yml
+#
+server.port=8011
+spring.application.name=blog-service
+
+#MySQL DB
+# MySQL
+spring.datasource.url=jdbc:mysql://localhost:3306/blog_app?createDatabaseIfNotExist=true&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=Password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.properties.hibernate.use_sql_comments=true
+spring.jpa.properties.hibernate.format_sql=true
+
+#Consumer
+spring.kafka.consumer.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=0
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+# Producer
+spring.kafka.producer.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+```
+
 
 
 
@@ -118,3 +180,10 @@ Response:
 <img width="1203" alt="Screenshot 2022-07-15 at 9 46 24 PM" src="https://user-images.githubusercontent.com/54174687/179264681-3ea8a4f5-155a-4a01-ba9d-ec06a9992f90.png">
 
 
+```sh
+kafka-console-consumer --bootstrap-server localhost:9092 --topic blog --from-beginning
+This BlogEntity(id=1, title=Spring in Action, image=http://my-image/learning-java, description=Helps to learn Spring Core concepts) blog is created !
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic blog_comment --from-beginning
+This BlogCommentEntity(id=1, blogId=1, message=This is very good book to learn Spring Framework) comment is created !
+```
